@@ -13,6 +13,9 @@ class Product(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 
 @receiver(models.signals.post_delete, sender=Product)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
@@ -37,12 +40,12 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     if not instance.pk:
         return False
 
-    try:
-        old_file = Product.objects.get(pk=instance.pk).file
-    except Product.DoesNotExist:
-        return False
+    if instance.image:
+        try:
+            old_file = Product.objects.get(pk=instance.pk).image
+        except Product.DoesNotExist:
+            return False
 
-    new_file = instance.file
-    if not old_file == new_file:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
+        if not old_file == instance.image:
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
