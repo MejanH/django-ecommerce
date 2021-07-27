@@ -8,6 +8,7 @@ First Django Application after learning Python 😃. I am really enjoying Python
 - Working Authenticated Product and Category Models
 - Readonly products and categories
 - Postgresql
+- Unit Testing
 
 I saw a library called [Graphene-Django](https://docs.graphene-python.org/projects/django/en/latest/) which is capable of adding graphql in django. Right now, I used Rest API architechture. So, Ignored it for now.
 
